@@ -58,19 +58,18 @@ export default function Home() {
                 书签检查器
               </span>
             </div>
-            <Button
-              size="sm"
-              className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
-              onClick={() =>
-                window.open(
-                  "https://chromewebstore.google.com/detail/ngmjbgmjeodmglefjehdpdbamanidipp?utm_source=item-share-cb",
-                  "_blank"
-                )
-              }
+            <Link
+              href="https://chromewebstore.google.com/detail/ngmjbgmjeodmglefjehdpdbamanidipp?utm_source=item-share-cb"
+              target="_blank"
             >
-              <Chrome className="w-4 h-4 mr-2" />
-              安装插件
-            </Button>
+              <Button
+                size="sm"
+                className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <Chrome className="w-4 h-4 mr-2" />
+                安装插件
+              </Button>
+            </Link>
           </div>
         </div>
       </nav>
