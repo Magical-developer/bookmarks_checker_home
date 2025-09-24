@@ -55,7 +55,7 @@ export default function Home() {
                 <Bookmark className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">
-                书签检查器
+                KK书签检查器
               </span>
             </div>
             <Link
@@ -137,7 +137,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              为什么选择书签检查器？
+              为什么选择KK书签检查器？
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               专业的书签管理工具，让你的数字生活更加高效有序
@@ -337,11 +337,11 @@ export default function Home() {
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
                 <Bookmark className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold">书签检查器</span>
+              <span className="text-xl font-bold">KK书签检查器</span>
             </div>
             <div className="text-center md:text-right">
               <p className="text-gray-400 text-sm mb-2">
-                © 2024 书签检查器. 保留所有权利.
+                © 2024 KK书签检查器. 保留所有权利.
               </p>
               <p className="text-gray-500 text-xs">让每一个书签都有价值</p>
             </div>
