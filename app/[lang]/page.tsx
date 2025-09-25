@@ -12,36 +12,40 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
+import { getDictionary } from "@/lib/getDictionary";
+import { Locale } from "@/lib/i18n-config";
 
-export default function Home() {
-  const features = [
-    {
-      icon: AlertTriangle,
-      title: "失效链接检测",
-      description: "自动扫描并识别无法访问的书签，帮你清理过时内容",
-    },
-    {
-      icon: RefreshCw,
-      title: "重复书签清理",
-      description: "智能检测并合并重复的书签，让你的收藏更加整洁",
-    },
-    {
-      icon: Zap,
-      title: "一键批量操作",
-      description: "支持批量删除、移动和整理书签，提升管理效率",
-    },
-    {
-      icon: Shield,
-      title: "安全可靠",
-      description: "本地处理，不上传任何个人数据，保护你的隐私安全",
-    },
+// 这是一个将图标名称（字符串）映射到实际 React 组件的辅助对象。
+// 这样做是因为我们不能在 JSON 文件中存储 React 组件。
+const iconMap = {
+  AlertTriangle,
+  RefreshCw,
+  Zap,
+  Shield,
+};
+
+export default async function Home({
+  params: { lang },
+}: {
+  params: { lang: Locale };
+}) {
+  // 在页面组件的顶部，一次性获取当前语言的所有文案
+  const dict = await getDictionary(lang);
+
+  // 从字典动态构建 stats 数组
+  const stats = [
+    { number: "10,000+", label: dict.stats.users },
+    { number: "4.8", label: dict.stats.rating },
+    { number: "500k+", label: dict.stats.cleaned },
+    { number: "99%", label: dict.stats.accuracy },
   ];
 
-  const stats = [
-    { number: "10,000+", label: "活跃用户" },
-    { number: "4.8", label: "用户评分" },
-    { number: "50万+", label: "清理书签" },
-    { number: "99%", label: "检测准确率" },
+  // 从字典动态构建 features 数组，并结合上面的 iconMap 附加图标组件
+  const features = [
+    { icon: iconMap.AlertTriangle, ...dict.features.list[0] },
+    { icon: iconMap.RefreshCw, ...dict.features.list[1] },
+    { icon: iconMap.Zap, ...dict.features.list[2] },
+    { icon: iconMap.Shield, ...dict.features.list[3] },
   ];
 
   return (
@@ -55,7 +59,7 @@ export default function Home() {
                 <Bookmark className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">
-                KK书签检查器
+                {dict.nav.title}
               </span>
             </div>
             <Link
@@ -67,7 +71,7 @@ export default function Home() {
                 className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <Chrome className="w-4 h-4 mr-2" />
-                安装插件
+                {dict.nav.install_button}
               </Button>
             </Link>
           </div>
@@ -84,19 +88,19 @@ export default function Home() {
               className="mb-6 bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors"
             >
               <Star className="w-4 h-4 mr-1" />
-              Chrome Web Store 推荐
+              {dict.hero.badge}
             </Badge>
 
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              让你的书签
+              {dict.hero.title_part1}
               <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 {" "}
-                井井有条
+                {dict.hero.title_part2}
               </span>
             </h1>
 
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-              智能检测失效链接和重复书签，一键清理，让你的浏览器书签重获新生。已帮助上万用户整理书签。
+              {dict.hero.subtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
@@ -109,7 +113,7 @@ export default function Home() {
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
                 >
                   <Chrome className="w-5 h-5 mr-2" />
-                  免费安装插件
+                  {dict.hero.cta_button}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
@@ -137,10 +141,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              为什么选择KK书签检查器？
+              {dict.features.title}
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              专业的书签管理工具，让你的数字生活更加高效有序
+              {dict.features.subtitle}
             </p>
           </div>
 
@@ -172,45 +176,35 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              三步完成书签清理
+              {dict.how_it_works.title}
             </h2>
-            <p className="text-xl text-gray-600">简单易用，无需复杂设置</p>
+            <p className="text-xl text-gray-600">
+              {dict.how_it_works.subtitle}
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">1</span>
+            {dict.how_it_works.steps.map((step, index) => (
+              <div key={index} className="text-center">
+                <div
+                  className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 bg-gradient-to-r ${
+                    index === 0
+                      ? "from-blue-500 to-indigo-600"
+                      : index === 1
+                      ? "from-indigo-500 to-purple-600"
+                      : "from-purple-500 to-pink-600"
+                  }`}
+                >
+                  <span className="text-2xl font-bold text-white">
+                    {index + 1}
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                  {step.title}
+                </h3>
+                <p className="text-gray-600">{step.description}</p>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                安装插件
-              </h3>
-              <p className="text-gray-600">
-                从Chrome Web Store一键安装，无需注册账户
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">2</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                开始扫描
-              </h3>
-              <p className="text-gray-600">
-                点击图标开始检测，自动识别问题书签
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-bold text-white">3</span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                一键清理
-              </h3>
-              <p className="text-gray-600">批量删除或整理，让书签焕然一新</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -220,86 +214,52 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              用户真实反馈
+              {dict.testimonials.title}
             </h2>
-            <p className="text-xl text-gray-600">看看其他用户怎么说</p>
+            <p className="text-xl text-gray-600">
+              {dict.testimonials.subtitle}
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 text-yellow-400 fill-current"
-                    />
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-6">
-                  "太好用了！帮我清理了800多个失效书签，现在浏览器终于清爽了。"
-                </p>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white font-semibold">李</span>
+            {dict.testimonials.list.map((testimonial, index) => (
+              <Card key={index} className="border-0 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-5 h-5 text-yellow-400 fill-current"
+                      />
+                    ))}
                   </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">李明</div>
-                    <div className="text-sm text-gray-500">设计师</div>
+                  <p className="text-gray-600 mb-6">"{testimonial.quote}"</p>
+                  <div className="flex items-center">
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-gradient-to-r ${
+                        index === 0
+                          ? "from-blue-500 to-indigo-600"
+                          : index === 1
+                          ? "from-green-500 to-teal-600"
+                          : "from-purple-500 to-pink-600"
+                      }`}
+                    >
+                      <span className="text-white font-semibold">
+                        {testimonial.avatar}
+                      </span>
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900">
+                        {testimonial.name}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {testimonial.role}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 text-yellow-400 fill-current"
-                    />
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-6">
-                  "作为程序员，我收藏了大量技术文档。这个插件帮我找到了很多失效链接。"
-                </p>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white font-semibold">王</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">王开发</div>
-                    <div className="text-sm text-gray-500">全栈工程师</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 text-yellow-400 fill-current"
-                    />
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-6">
-                  "界面简洁，功能强大。重复书签检测特别准确，节省了我很多时间。"
-                </p>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white font-semibold">张</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">张研究</div>
-                    <div className="text-sm text-gray-500">研究员</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -308,10 +268,10 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-700">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            立即开始整理你的书签
+            {dict.cta.title}
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            免费下载安装，无需注册，马上体验专业的书签管理功能
+            {dict.cta.subtitle}
           </p>
           <Link
             href="https://chromewebstore.google.com/detail/ngmjbgmjeodmglefjehdpdbamanidipp?utm_source=item-share-cb"
@@ -322,7 +282,7 @@ export default function Home() {
               className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
               <Chrome className="w-5 h-5 mr-2" />
-              免费安装插件
+              {dict.cta.button}
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
@@ -337,17 +297,17 @@ export default function Home() {
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
                 <Bookmark className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold">KK书签检查器</span>
+              <span className="text-xl font-bold">{dict.nav.title}</span>
             </div>
             <div className="text-center md:text-right">
               <p className="text-gray-400 text-sm mb-2">
-                © 2024 KK书签检查器. 保留所有权利.
+                {dict.footer.copyright}
               </p>
-              <p className="text-gray-500 text-xs">让每一个书签都有价值</p>
+              <p className="text-gray-500 text-xs">{dict.footer.tagline}</p>
             </div>
           </div>
           <div>
-            <p>友情链接</p>
+            <p>{dict.footer.links_title}</p>
             <div className="flex flex-wrap gap-4">
               <Link
                 href="https://www.krzacg.com"

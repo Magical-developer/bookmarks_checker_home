@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "title": "KK Bookmark Checker - Clean Duplicate & Dead Bookmarks | Chrome Extension",
+    "description": "A professional Chrome extension for managing bookmarks. Intelligently detects dead links and duplicates for one-click cleanup, bringing order to your browser bookmarks. Trusted by 10,000+ users.",
+    "keywords": "Bookmark manager, Chrome extension, Dead link checker, Duplicate bookmark remover, Browser extension, Bookmark organizer"
+  },
+  "nav": {
+    "title": "KK Bookmark Checker",
+    "install_button": "Install Extension"
+  },
+  "hero": {
+    "badge": "Chrome Web Store Favorite",
+    "title_part1": "Bring Order to",
+    "title_part2": "Your Bookmarks",
+    "subtitle": "Intelligently scan for dead links and duplicates with a single click. Give your browser's bookmarks a fresh start. Trusted by tens of thousands of users to organize their digital library.",
+    "cta_button": "Get the Free Extension"
+  },
+  "stats": {
+    "users": "Active Users",
+    "rating": "User Rating",
+    "cleaned": "Bookmarks Cleaned",
+    "accuracy": "Detection Accuracy"
+  },
+  "features": {
+    "title": "Why Choose KK Bookmark Checker?",
+    "subtitle": "The professional tool to make your digital life more efficient and organized.",
+    "list": [
+      {
+        "title": "Dead Link Detection",
+        "description": "Automatically scans and identifies unreachable bookmarks, helping you clean up outdated content."
+      },
+      {
+        "title": "Duplicate Cleanup",
+        "description": "Intelligently finds and merges duplicate bookmarks, making your collection cleaner and more relevant."
+      },
+      {
+        "title": "One-Click Batch Actions",
+        "description": "Supports batch deleting, moving, and organizing bookmarks to dramatically improve your management efficiency."
+      },
+      {
+        "title": "Secure & Reliable",
+        "description": "All processing happens locally on your machine. No personal data is ever uploaded, guaranteeing your privacy."
+      }
+    ]
+  },
+  "how_it_works": {
+    "title": "Get Started in Three Easy Steps",
+    "subtitle": "Simple to use, no complex setup required.",
+    "steps": [
+      {
+        "title": "Install Extension",
+        "description": "Install from the Chrome Web Store with one click. No account needed."
+      },
+      {
+        "title": "Start Scanning",
+        "description": "Click the icon to start the detection and automatically identify problematic bookmarks."
+      },
+      {
+        "title": "Clean Up",
+        "description": "Batch delete or organize them to make your bookmarks feel brand new."
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Real Feedback from Our Users",
+    "subtitle": "See what others are saying.",
+    "list": [
+      {
+        "quote": "This is amazing! It helped me clean up over 800 dead links. My browser finally feels fresh again.",
+        "name": "Michael L.",
+        "role": "Designer",
+        "avatar": "M"
+      },
+      {
+        "quote": "As a developer, I have tons of technical docs bookmarked. This extension found so many broken links I'd forgotten about.",
+        "name": "David W.",
+        "role": "Full-Stack Engineer",
+        "avatar": "D"
+      },
+      {
+        "quote": "Clean interface and powerful features. The duplicate detection is especially accurate and saved me a lot of time.",
+        "name": "Sarah Z.",
+        "role": "Researcher",
+        "avatar": "S"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Start Organizing Your Bookmarks Today",
+    "subtitle": "Download for free. No registration required to experience professional bookmark management.",
+    "button": "Get the Free Extension"
+  },
+  "footer": {
+    "copyright": "© 2024 KK Bookmark Checker. All Rights Reserved.",
+    "tagline": "Making every bookmark valuable",
+    "links_title": "Friendly Links"
+  }
+}
