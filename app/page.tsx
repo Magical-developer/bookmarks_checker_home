@@ -331,7 +331,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
@@ -344,6 +344,41 @@ export default function Home() {
                 © 2024 KK书签检查器. 保留所有权利.
               </p>
               <p className="text-gray-500 text-xs">让每一个书签都有价值</p>
+            </div>
+          </div>
+          <div>
+            <p>友情链接</p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="https://www.krzacg.com"
+                target="_blank"
+                className="text-blue-500 hover:underline"
+                rel="noopener noreferrer nofollow"
+                title="krzacg"
+                aria-label="krzacg"
+              >
+                KrzACG社区
+              </Link>
+              <Link
+                href="https://krzacg-navi.pages.dev/"
+                target="_blank"
+                className="text-blue-500 hover:underline"
+                rel="noopener noreferrer nofollow"
+                title="krzacg-导航页"
+                aria-label="krzacg-导航页"
+              >
+                KrzACG - 导航页
+              </Link>
+              <Link
+                href="https://vlink.cc/krzacg"
+                target="_blank"
+                className="text-blue-500 hover:underline"
+                rel="noopener noreferrer nofollow"
+                title="krzacg-VLink"
+                aria-label="krzacg-VLink"
+              >
+                KrzACG - 主站 - VLink
+              </Link>
             </div>
           </div>
         </div>
