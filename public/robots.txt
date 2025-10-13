@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bookmarks-checker-home.pages.dev/sitemap.xml
+
+# Block access to certain files
+Disallow: /_next/
+Disallow: /api/
+Disallow: /.well-known/
