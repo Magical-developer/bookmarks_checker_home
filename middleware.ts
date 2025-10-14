@@ -18,15 +18,8 @@ function getLocale(request: NextRequest): string | undefined {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // 跳过SEO和系统文件，不进行语言重定向
-  const skipPaths = [
-    '/sitemap.xml',
-    '/robots.txt',
-    '/favicon.ico',
-    '/.well-known',
-  ];
-
-  if (skipPaths.some(path => pathname.startsWith(path))) {
+  // 优先直接处理 sitemap 和 robots.txt
+  if (pathname === "/sitemap.xml" || pathname === "/robots.txt") {
     return NextResponse.next();
   }
 
@@ -35,26 +28,24 @@ export function middleware(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
-  // 如果是根路径且缺少语言前缀，进行重定向
+  // 如果路径缺少语言前缀，则重定向
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
-    
-    // 确保不会创建无效的URL
-    const newPathname = pathname === '/' ? '' : pathname;
-    
-    return NextResponse.redirect(
-      new URL(`/${locale}${newPathname}`, request.url)
-    );
+
+    // 对于根路径，直接重定向到 /<locale>
+    if (pathname === "/") {
+      return NextResponse.redirect(new URL(`/${locale}`, request.url));
+    }
+
+    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
   }
+
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    // 匹配所有路径，但排除：
-    // - API路由 (/api)
-    // - Next.js静态文件 (_next/static, _next/image)
-    // - SEO文件 (sitemap.xml, robots.txt, favicon.ico)
-    // - .well-known目录
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|\\.well-known).*)",
+    // 排除API, Next.js内部文件, 和一些静态资源
+    "/((?!api|_next/static|_next/image|favicon.ico|sw.js).*)",
   ],
 };
