@@ -43,9 +43,6 @@ export async function generateMetadata({
         'x-default': `${baseUrl}/en`,
       },
     },
-    other: {
-      "google-site-verification": "JXame2td3ATLmQwx-1mbmyEQ46HXh0OXEXx8SBZu6Ak",
-    },
   };
 }
 

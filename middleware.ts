@@ -17,11 +17,15 @@ function getLocale(request: NextRequest): string | undefined {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const userAgent = request.headers.get('user-agent') || '';
 
   // 优先直接处理 sitemap 和 robots.txt
   if (pathname === "/sitemap.xml" || pathname === "/robots.txt") {
     return NextResponse.next();
   }
+
+  // 检测是否为爬虫
+  const isBot = /bot|crawler|spider|crawling/i.test(userAgent);
 
   // 检查路径是否已包含语言前缀
   const pathnameIsMissingLocale = i18n.locales.every(
@@ -30,11 +34,18 @@ export function middleware(request: NextRequest) {
 
   // 如果路径缺少语言前缀，则重定向
   if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
+    let locale: string;
+    
+    // 对于爬虫，默认使用英语避免重定向问题
+    if (isBot) {
+      locale = i18n.defaultLocale;
+    } else {
+      locale = getLocale(request) || i18n.defaultLocale;
+    }
 
-    // 对于根路径，直接重定向到 /<locale>
+    // 对于根路径，使用 rewrite 而不是 redirect 来避免爬虫问题
     if (pathname === "/") {
-      return NextResponse.redirect(new URL(`/${locale}`, request.url));
+      return NextResponse.rewrite(new URL(`/${locale}`, request.url));
     }
 
     return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
